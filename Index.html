@@ -1,91 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="guess.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="guess.css" />
     <title>Guess The Number</title>
-</head>
+  </head>
 
-<body>
+  <body>
+    <img class="background" src="/background-img2.jpg" alt="Aleq" />
     <div class="container">
-        <div class="header">
-            <div class="first-row">
-                <button class="play-again" onclick="playAgain()">Play Again !!!</button>
-                <p class="between">(Between 1 and 20)</p>
-            </div>
-            <div class="second-row">
-                <h1> Guess The Number ! </h1>
-            </div>
-            <div class="third-row">
-                <div class="output-number">?</div>
-            </div>
-            <div class="fourth-row">
-                <div class="line"></div>
-            </div>
-
+      <div class="header">
+        <div class="first-row">
+          <button class="play-again" onclick="playAgain()">
+            Play Again !!!
+          </button>
+          <p class="between">(Between 1 and 20)</p>
         </div>
-        <div class="bottom-section">
-            <div class="left-section">
-                <div class="input-row"> <input type="number" class="input-num" onkeyup="guessingNumber(event)"></div>
-                <div class="btn"><button onclick="checkNumber()">Check !</button></div>
-            </div>
-            <div class="right-section">
-                <div class="guess-status">Start Guessing ...</div>
-                <div class="score-section">
-                    <div class="score-row">💯 Score : <span class="score">20</span></div>
-                    <div class="highscore-row">🥇 High Score : <span class="high-score">0</span></div>
-                </div>  
-            </div>
+        <div class="second-row">
+          <h1>Guess Number !</h1>
         </div>
+        <div class="third-row">
+          <div class="output-number">?</div>
+        </div>
+        <div class="fourth-row">
+          <div class="line"></div>
+        </div>
+      </div>
+      <div class="bottom-section">
+        <div class="left-section">
+          <div class="input-row">
+            <input
+              type="number"
+              class="input-num"
+              onkeyup="guessingNumber(event)"
+            />
+          </div>
+          <div>
+            <button class="btn" onclick="checkNumber()">Check !</button>
+          </div>
+        </div>
+        <div class="right-section">
+          <div class="guess-status">Start Guessing ...</div>
+          <div class="score-section">
+            <div class="score-row">
+              <span> 💯 Score : </span
+              ><span class="score" style="padding-top: 4px">20</span>
+            </div>
+            <div class="highscore-row">
+              <span> 🥇 High Score : </span
+              ><span style="padding-top: 4px" class="high-score">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
-<script>
+  </body>
+  <script>
     let score = 20;
     let highscore = 0;
     let secretNumber = Math.trunc(Math.random() * 20) + 1;
     let guessNumber = null;
     function guessingNumber(event) {
-        guessNumber = Number(event.target.value);
-        console.log(typeof guessNumber)
+      guessNumber = Number(event.target.value);
+      console.log(typeof guessNumber);
     }
     function checkNumber() {
-        if (guessNumber == secretNumber) {
-            document.querySelector(".guess-status").textContent = "🎉You Won the Game🎉"
-            document.querySelector(".output-number").textContent=secretNumber;
-            if (score>highscore){
-                highscore=score;
-                document.querySelector(".high-score").textContent=highscore;
-            }
+      if (guessNumber == secretNumber) {
+        document.querySelector(".guess-status").textContent =
+          "🎉You Won the Game🎉";
+        document.querySelector(".output-number").textContent = secretNumber;
+        if (score > highscore) {
+          highscore = score;
+          document.querySelector(".high-score").textContent = highscore;
         }
-        else {
-            if (score > 1) {
-                if (guessNumber > secretNumber) {
-                    document.querySelector(".guess-status").textContent = "📈Too High!!!"
-                    score--;
-                    document.querySelector(".score").textContent = score;
-                }
-                else {
-                    document.querySelector(".guess-status").textContent = "📉Too Low"
-                    score--;
-                    document.querySelector(".score").textContent = score;
-                }
-            }
-            else {
-                document.querySelector(".guess-status").textContent = "😭You lost the Game"
-            }
+      } else {
+        if (score > 1) {
+          if (guessNumber > secretNumber) {
+            document.querySelector(".guess-status").textContent =
+              "📈Too High!!!";
+            score--;
+            document.querySelector(".score").textContent = score;
+          } else {
+            document.querySelector(".guess-status").textContent = "📉Too Low";
+            score--;
+            document.querySelector(".score").textContent = score;
+          }
+        } else {
+          document.querySelector(".guess-status").textContent =
+            "😭You lost the Game";
         }
-    } 
-    function playAgain(){
-        guessNumber=null;
-        score=20;
-        document.querySelector(".guess-status").textContent = "Start Guessing..."
-        document.querySelector(".score").textContent = score;
-        document.querySelector(".output-number").textContent="?";
-
+      }
     }
-</script>
-
+    function playAgain() {
+      guessNumber = null;
+      score = 20;
+      document.querySelector(".guess-status").textContent = "Start Guessing...";
+      document.querySelector(".score").textContent = score;
+      document.querySelector(".output-number").textContent = "?";
+    }
+  </script>
 </html>
