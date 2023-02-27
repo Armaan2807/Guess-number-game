@@ -13,7 +13,7 @@
     <div class="container">
         <div class="header">
             <div class="first-row">
-                <button class="play-again">Play Again !!!</button>
+                <button class="play-again" onclick="playAgain()">Play Again !!!</button>
                 <p class="between">(Between 1 and 20)</p>
             </div>
             <div class="second-row">
@@ -28,19 +28,64 @@
 
         </div>
         <div class="bottom-section">
-        <div class="left-section">
-            <div class="input-row"> <input type="number" class="input-num"></div>
-            <div class="btn"><button>Check !</button></div>
-        </div>
-        <div class="right-section">
-            <div class="guess-status">Start Guessing ...</div>
-            <div class="score-section"> 
-                <div class="score-row">💯 Score : 20</div>
-                <div class="highscore-row">🥇 High Score : 20</div>
+            <div class="left-section">
+                <div class="input-row"> <input type="number" class="input-num" onkeyup="guessingNumber(event)"></div>
+                <div class="btn"><button onclick="checkNumber()">Check !</button></div>
             </div>
-        </div>
+            <div class="right-section">
+                <div class="guess-status">Start Guessing ...</div>
+                <div class="score-section">
+                    <div class="score-row">💯 Score : <span class="score">20</span></div>
+                    <div class="highscore-row">🥇 High Score : <span class="high-score">0</span></div>
+                </div>  
+            </div>
         </div>
     </div>
 </body>
+<script>
+    let score = 20;
+    let highscore = 0;
+    let secretNumber = Math.trunc(Math.random() * 20) + 1;
+    let guessNumber = null;
+    function guessingNumber(event) {
+        guessNumber = Number(event.target.value);
+        console.log(typeof guessNumber)
+    }
+    function checkNumber() {
+        if (guessNumber == secretNumber) {
+            document.querySelector(".guess-status").textContent = "🎉You Won the Game🎉"
+            document.querySelector(".output-number").textContent=secretNumber;
+            if (score>highscore){
+                highscore=score;
+                document.querySelector(".high-score").textContent=highscore;
+            }
+        }
+        else {
+            if (score > 1) {
+                if (guessNumber > secretNumber) {
+                    document.querySelector(".guess-status").textContent = "📈Too High!!!"
+                    score--;
+                    document.querySelector(".score").textContent = score;
+                }
+                else {
+                    document.querySelector(".guess-status").textContent = "📉Too Low"
+                    score--;
+                    document.querySelector(".score").textContent = score;
+                }
+            }
+            else {
+                document.querySelector(".guess-status").textContent = "😭You lost the Game"
+            }
+        }
+    } 
+    function playAgain(){
+        guessNumber=null;
+        score=20;
+        document.querySelector(".guess-status").textContent = "Start Guessing..."
+        document.querySelector(".score").textContent = score;
+        document.querySelector(".output-number").textContent="?";
+
+    }
+</script>
 
 </html>
